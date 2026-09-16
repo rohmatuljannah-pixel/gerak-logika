@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>GERAK LOGIKA</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+
+<body>
+    <section
+        id="form-identitas"
+        class="start-screen"
+    >
+        <div class="section-heading">
+        <span>👤</span>
+
+        <div>
+            <h2>Identitas Pemain</h2>
+            <p>Masukkan identitas sebelum mulai bermain.</p>
+        </div>
+    </div>
+
+    <div class="identity-grid">
+
+        <div class="input-group">
+            <label for="nama-siswa">
+                Nama
+            </label>
+
+            <input
+                type="text"
+                id="nama-siswa"
+                placeholder="Masukkan nama"
+            >
+        </div>
+
+        <div class="input-group">
+            <label for="kelas-siswa">
+                Kelas
+            </label>
+
+            <input
+                type="text"
+                id="kelas-siswa"
+                placeholder="Contoh: VI"
+            >
+        </div>
+
+    </div>
+
+    <div class="identity-actions">
+
+        <button
+            class="btn btn-primary"
+            onclick="mulaiBermain()"
+        >
+            ▶ Mulai Bermain
+        </button>
+
+        <button
+            class="btn btn-secondary"
+            onclick="lanjutkanPermainan()"
+        >
+            ↪ Lanjutkan Permainan
+        </button>
+<button id="btn-mode-guru" onclick="bukaLoginGuru()">
+    👩‍🏫 MODE GURU
+</button>
+    </div>
+    </section>
+
+<div id="game-screen" class="app-shell">
+
+    <!-- =========================
+         HEADER
+    ========================== -->
+
+    <header class="game-header">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                🧠
+            </div>
+
+            <div>
+                <h1>GERAK LOGIKA</h1>
+
+                <p>
+                    Susun langkah • Jalankan logika • Capai tujuan
+                </p>
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         LEVEL
+    ========================== -->
+
+    <section
+        id="pemilih-level"
+        class="level-card"
+    >
+
+        <div class="level-heading">
+
+            <div>
+                <span class="eyebrow">
+                    PROGRES PERMAINAN
+                </span>
+
+                <h2>🎮 Pilih Level</h2>
+            </div>
+
+        </div>
+
+
+        <div
+            id="daftar-level"
+            class="level-list"
+        ></div>
+
+    </section>
+
+
+
+    <!-- =========================
+         AREA GAME
+    ========================== -->
+
+    <main class="game-layout">
+
+
+        <!-- BOARD -->
+
+        <section class="board-panel">
+
+            <div class="board-header">
+
+                <div>
+
+                    <span class="eyebrow">
+                        TANTANGAN
+                    </span>
+
+                    <h2 id="judul-level">
+                        Level 1
+                    </h2>
+
+                </div>
+
+
+                <div class="target-info">
+
+                    <div class="stat-mini">
+                        <span>🧩</span>
+
+                        <div>
+                            <small>Blok</small>
+
+                            <strong id="jumlah-blok">
+                                0
+                            </strong>
+                        </div>
+                    </div>
+
+
+                    <div class="stat-mini">
+                        <span>🎯</span>
+
+                        <div>
+                            <small>Target</small>
+
+                            <strong>
+                                <span id="target-blok">-</span>
+                            </strong>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="board-wrapper">
+
+                <div class="arena">
+
+                    <div>🤖</div>
+                    <div>⬜</div>
+                    <div>⬜</div>
+                    <div>⬜</div>
+
+                    <div>⬜</div>
+                    <div>⬜</div>
+                    <div>⬜</div>
+                    <div>⬜</div>
+
+                    <div>⬜</div>
+                    <div>⬜</div>
+                    <div>⬜</div>
+                    <div>⬜</div>
+
+                    <div>⬜</div>
+                    <div>⬜</div>
+                    <div>⬜</div>
+                    <div>⭐</div>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="status-game"
+                class="game-status"
+            ></div>
+
+        </section>
+
+
+
+        <!-- PANEL PERINTAH -->
+
+        <section class="command-panel">
+
+            <div class="section-heading compact">
+
+                <span>🧩</span>
+
+                <div>
+                    <h2>Blok Perintah</h2>
+                    <p>Pilih perintah untuk menyusun algoritma.</p>
+                </div>
+
+            </div>
+
+
+            <!-- GERAK -->
+
+            <div class="command-group">
+
+                <h3>Gerakan</h3>
+
+                <div class="command-buttons">
+
+                    <button
+                        class="command-btn"
+                        onclick="tambahPerintah('KIRI')"
+                    >
+                        ↩️
+                        <span>KIRI</span>
+                    </button>
+
+
+                    <button
+                        class="command-btn main-command"
+                        onclick="tambahPerintah('MAJU')"
+                    >
+                        ⬆️
+                        <span>MAJU</span>
+                    </button>
+
+
+                    <button
+                        class="command-btn"
+                        onclick="tambahPerintah('KANAN')"
+                    >
+                        ↪️
+                        <span>KANAN</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- EDIT -->
+
+            <div class="command-group">
+
+                <h3>Edit Algoritma</h3>
+
+                <div class="command-buttons two-column">
+
+                    <button
+                        class="command-btn utility"
+                        onclick="hapusPerintahTerakhir()"
+                    >
+                        ↶
+                        <span>Hapus Terakhir</span>
+                    </button>
+
+
+                    <button
+                        class="command-btn utility"
+                        onclick="hapusSemuaPerintah()"
+                    >
+                        🗑️
+                        <span>Hapus Semua</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- LOOP -->
+
+            <div class="command-group" id="grup-loop">
+
+                <h3>🔁 Pengulangan</h3>
+
+                <div class="command-buttons two-column">
+
+                    <button
+                        class="command-btn logic"
+                        onclick="ulangiPerintahTerakhir(2)"
+                    >
+                        🔁
+                        <span>Ulangi 2×</span>
+                    </button>
+
+
+                    <button
+                        class="command-btn logic"
+                        onclick="ulangiPerintahTerakhir(3)"
+                    >
+                        🔁
+                        <span>Ulangi 3×</span>
+                    </button>
+
+
+                    <button
+                        class="command-btn logic wide"
+                        onclick="ulangiDuaPerintahTerakhir(2)"
+                    >
+                        🔁
+                        <span>2× Dua Perintah</span>
+                    </button>
+
+
+                    <button
+                        class="command-btn logic wide"
+                        onclick="ulangiDuaPerintahTerakhir(3)"
+                    >
+                        🔁
+                        <span>3× Dua Perintah</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- CONDITIONAL -->
+
+            <div class="command-group" id="grup-kondisi">
+
+                <h3>🧠 Kondisi</h3>
+
+                <div class="command-buttons condition-list">
+
+                    <button
+                        class="command-btn condition"
+                        onclick="tambahKondisiRintanganKanan()"
+                    >
+                        🚧
+                        <span>
+                            Jika ada rintangan → KANAN
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="command-btn condition"
+                        onclick="tambahKondisiRintanganKiri()"
+                    >
+                        🚧
+                        <span>
+                            Jika ada rintangan → KIRI
+                        </span>
+                    </button>
+
+
+                    <button
+                        class="command-btn condition"
+                        onclick="tambahKondisiJalanKosongMaju()"
+                    >
+                        🟢
+                        <span>
+                            Jika jalan kosong → MAJU
+                        </span>
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- BRANCHING -->
+
+            <div class="command-group" id="grup-percabangan">
+
+                <h3>🔀 Percabangan</h3>
+
+                <button
+                    class="command-btn branching"
+                    onclick="tambahPercabangan()"
+                >
+                    🔀
+
+                    <span>
+                        Jika Rintangan → KIRI
+                        <br>
+                        Jika Tidak → MAJU
+                    </span>
+                </button>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =========================
+         ALGORITMA
+    ========================== -->
+
+    <section class="algorithm-panel">
+
+        <div class="algorithm-header">
+
+            <div>
+
+                <span class="eyebrow">
+                    ALGORITMA
+                </span>
+
+                <h2>
+                    🧠 Perintah yang Kamu Susun
+                </h2>
+
+            </div>
+
+
+            <div class="attempt-pill">
+                🔄 Percobaan:
+                <strong id="jumlah-percobaan">
+                    0
+                </strong>
+            </div>
+
+        </div>
+
+
+        <div class="algorithm-box">
+
+            <span
+                id="daftar-perintah"
+                class="command-sequence"
+            ></span>
+
+        </div>
+
+
+        <div class="assessment-mini">
+
+            <div>
+                <span>🧠 Debugging</span>
+
+                <strong id="status-debugging">
+                    Belum ada data
+                </strong>
+            </div>
+
+
+            <div>
+                <span>📈 Perkembangan</span>
+
+                <strong id="perkembangan-algoritma">
+                    Belum ada data
+                </strong>
+            </div>
+
+        </div>
+
+
+        <details class="attempt-history">
+
+            <summary>
+                Lihat riwayat percobaan
+            </summary>
+
+            <div id="riwayat-percobaan"></div>
+
+        </details>
+
+    </section>
+
+
+
+    <!-- =========================
+         CONTROL BAR
+    ========================== -->
+
+    <div class="kontrol-game">
+
+        <button
+            class="control-btn primary"
+            onclick="jalankanPerintah()"
+        >
+            ▶️ JALANKAN
+        </button>
+
+
+        <button
+            class="control-btn"
+            onclick="resetGame()"
+        >
+            🔄 RESET
+        </button>
+
+
+        <button
+            class="control-btn danger"
+            onclick="hapusSemuaPerintah()"
+        >
+            🗑️ HAPUS
+        </button>
+
+    </div>
+
+
+
+    <!-- Tombol lama dipertahankan untuk kompatibilitas.
+         Nanti di visual final bisa kita hapus sepenuhnya. -->
+
+    <button
+        id="tombol-next"
+        onclick="levelBerikutnya()"
+        style="display:none;"
+    >
+        Level Berikutnya ➡️
+    </button>
+
+
+
+    <!-- =========================
+         RESULT SISWA
+    ========================== -->
+
+    <section class="student-result">
+
+        <div class="section-heading">
+
+            <span>🏆</span>
+
+            <div>
+                <h2>Hasil Permainan</h2>
+
+                <p>
+                    Lihat perkembangan dan hasil belajarmu.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="result-actions">
+
+            <button
+                class="btn btn-primary"
+                onclick="tampilkanHasilSemuaLevel()"
+            >
+                📊 Lihat Hasil
+            </button>
+
+
+            <button
+                class="btn btn-secondary"
+                onclick="gantiPemain()"
+            >
+                👥 Selesai / Ganti Pemain
+            </button>
+
+        </div>
+
+
+        <div
+            id="hasil-semua-level"
+            class="result-content"
+        >
+            Belum ada level yang diselesaikan.
+        </div>
+
+    </section>
+
+
+
+    <!--
+        =================================================
+        AREA GURU TIDAK DITAMPILKAN DI MODE SISWA.
+        ID dipertahankan tersembunyi agar game.js aman.
+        Nanti kita pindahkan ke teacher.html.
+        =================================================
+    -->
+
+    <div
+        id="rekap-kelas"
+        hidden
+    ></div>
+
+
+</div>
+
+
+<script src="game.js"></script>
+<!-- ENDING GERAK LOGIKA -->
+<div id="ending-game">
+    <div class="ending-card">
+        <div class="ending-piala">🏆</div>
+
+        <h2>PETUALANGAN SELESAI!</h2>
+
+        <p class="ending-selamat">
+            Selamat! Kamu telah menyelesaikan
+            <strong>10 Level GERAK LOGIKA</strong>
+        </p>
+
+        <p>
+            🧠 Kamu berhasil menggunakan logika, perulangan,
+            kondisi, dan strategi untuk membantu Geka
+            menyelesaikan petualangannya.
+        </p>
+
+        <div class="ending-bintang">
+            ⭐ ⭐ ⭐
+        </div>
+
+        <h3>Hebat, Petualang Logika!</h3>
+
+        <button onclick="tutupEndingDanLihatHasil()">
+            📊 LIHAT HASIL
+        </button>
+
+        <small>
+            GERAK LOGIKA • Dunia Fantasi Crochet • R
+        </small>
+    </div>
+</div>
+<!-- LOGIN MODE GURU -->
+<div id="login-guru" class="guru-overlay">
+    <div class="guru-login-card">
+        <h2>👩‍🏫 Mode Guru</h2>
+        <p>Masukkan PIN untuk membuka rekap kelas.</p>
+
+        <input
+            type="password"
+            id="pin-guru"
+            placeholder="PIN Guru"
+            inputmode="numeric"
+        >
+
+        <div class="guru-login-actions">
+            <button onclick="masukModeGuru()">
+                🔓 MASUK
+            </button>
+
+            <button onclick="tutupLoginGuru()">
+                BATAL
+            </button>
+        </div>
+    </div>
+</div>
+</body>
+
+</html>

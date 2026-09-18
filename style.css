@@ -1,0 +1,2717 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        linear-gradient(
+            180deg,
+            #eef7ff 0%,
+            #f8fbff 45%,
+            #ffffff 100%
+        );
+    color: #1f2937;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    border: none;
+}
+
+.app-shell {
+    width: min(1180px, 94%);
+    margin: 0 auto;
+    padding: 28px 0 120px;
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.game-header {
+    margin-bottom: 22px;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    padding: 22px 26px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #153b66,
+            #205d92
+        );
+
+    border-radius: 24px;
+
+    color: white;
+
+    box-shadow:
+        0 12px 30px rgba(15, 50, 85, 0.18);
+}
+
+.brand-icon {
+    display: grid;
+    place-items: center;
+
+    width: 64px;
+    height: 64px;
+
+    flex-shrink: 0;
+
+    font-size: 34px;
+
+    background: rgba(255,255,255,0.16);
+    border-radius: 18px;
+}
+
+.brand h1 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 42px);
+    letter-spacing: 1px;
+}
+
+.brand p {
+    margin: 5px 0 0;
+    opacity: 0.88;
+}
+
+
+/* =========================
+   CARD UMUM
+========================= */
+
+.player-card,
+.level-card,
+.board-panel,
+.command-panel,
+.algorithm-panel,
+.student-result {
+    background: rgba(255,255,255,0.96);
+
+    border: 1px solid #dce7f1;
+    border-radius: 22px;
+
+    box-shadow:
+        0 8px 24px rgba(41, 70, 98, 0.08);
+}
+
+.player-card,
+.level-card,
+.algorithm-panel,
+.student-result {
+    padding: 22px;
+    margin-bottom: 20px;
+}
+
+.section-heading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 18px;
+}
+
+.section-heading > span {
+    font-size: 28px;
+}
+
+.section-heading h2,
+.level-card h2,
+.board-panel h2,
+.command-panel h2,
+.algorithm-panel h2,
+.student-result h2 {
+    margin: 0;
+}
+
+.section-heading p,
+.command-panel p {
+    margin: 4px 0 0;
+    color: #64748b;
+}
+
+.section-heading.compact {
+    margin-bottom: 16px;
+}
+
+.eyebrow {
+    display: inline-block;
+
+    margin-bottom: 4px;
+
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.4px;
+
+    color: #547089;
+}
+
+
+/* =========================
+   IDENTITAS
+========================= */
+
+.identity-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.input-group label {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.input-group input {
+    width: 100%;
+
+    padding: 12px 14px;
+
+    border: 1px solid #cbd8e5;
+    border-radius: 12px;
+
+    outline: none;
+
+    background: #fbfdff;
+}
+
+.input-group input:focus {
+    border-color: #3d7eb5;
+    box-shadow:
+        0 0 0 3px rgba(61,126,181,0.13);
+}
+
+.identity-actions,
+.result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    margin-top: 16px;
+}
+
+
+/* =========================
+   BUTTON UMUM
+========================= */
+
+.btn {
+    padding: 11px 16px;
+
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-weight: 700;
+
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease,
+        opacity 0.15s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: #1f5f91;
+    color: white;
+
+    box-shadow:
+        0 6px 14px rgba(31,95,145,0.2);
+}
+
+.btn-secondary {
+    background: #eaf2f8;
+    color: #23445f;
+}
+
+
+/* =========================
+   LEVEL
+========================= */
+
+.level-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 14px;
+}
+
+.level-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 9px;
+}
+
+.level-list button {
+    min-width: 54px;
+    padding: 10px 12px;
+
+    border-radius: 12px;
+
+    background: #e9f2f9;
+    color: #254760;
+
+    cursor: pointer;
+
+    font-weight: 800;
+}
+
+.level-list button:hover:not(:disabled) {
+    background: #d6e8f5;
+}
+
+.level-list button:disabled {
+    cursor: not-allowed;
+    opacity: 0.46;
+}
+
+
+/* =========================
+   LAYOUT GAME
+========================= */
+
+.game-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    align-items: stretch;
+    height: calc(100vh - 210px);
+    min-height: 560px;
+}
+
+
+/* =========================
+   BOARD
+========================= */
+
+.board-panel {
+    padding: 22px;
+    height: 100%;
+display: flex;
+flex-direction: column;
+}
+
+.board-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 18px;
+}
+
+.target-info {
+    display: flex;
+    gap: 8px;
+}
+
+.stat-mini {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 11px;
+
+    background: #f0f6fa;
+    border-radius: 12px;
+}
+
+.stat-mini span {
+    font-size: 20px;
+}
+
+.stat-mini div {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-mini small {
+    font-size: 10px;
+    color: #718397;
+}
+
+.stat-mini strong {
+    font-size: 16px;
+}
+
+.board-wrapper {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    min-height: 0;
+    padding: 18px;
+    background: linear-gradient(
+        145deg,
+        #e8f5e7,
+        #f7fbf4
+    );
+    border-radius: 20px;
+}
+
+
+/* =========================
+   ARENA
+========================= */
+
+.arena {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(68px, 92px));
+
+    gap: 7px;
+
+    width: fit-content;
+}
+
+.arena > div {
+    display: grid;
+    place-items: center;
+
+    aspect-ratio: 1 / 1;
+
+    min-width: 68px;
+
+    background:
+        linear-gradient(
+            145deg,
+            #ffffff,
+            #e9f0f5
+        );
+
+    border: 2px solid #b8c8d5;
+    border-radius: 16px;
+
+    font-size: clamp(28px, 4vw, 42px);
+
+    box-shadow:
+        inset 0 1px 2px rgba(255,255,255,0.8),
+        0 4px 9px rgba(52,73,94,0.08);
+
+    transition:
+        transform 0.18s ease,
+        background 0.18s ease;
+}
+
+.arena > div:hover {
+    transform: translateY(-1px);
+}
+
+.game-status {
+    min-height: 30px;
+
+    margin-top: 16px;
+
+    padding: 12px 14px;
+
+    border-radius: 12px;
+
+    background: #f6f9fb;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   PANEL PERINTAH
+========================= */
+
+.command-panel {
+    padding: 20px;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.command-group {
+    padding-top: 15px;
+    margin-top: 15px;
+
+    border-top: 1px solid #e3ebf1;
+}
+
+.command-group:first-of-type {
+    border-top: 0;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.command-group h3 {
+    margin: 0 0 10px;
+
+    font-size: 14px;
+    color: #415b70;
+}
+
+.command-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 9px;
+}
+
+.command-buttons.two-column {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.command-buttons.condition-list {
+    grid-template-columns: 1fr;
+}
+
+.command-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+
+    min-height: 52px;
+    padding: 10px;
+
+    border-radius: 13px;
+
+    background: #eff6fb;
+    color: #23445f;
+
+    cursor: pointer;
+
+    font-weight: 800;
+
+    transition:
+        transform 0.15s ease,
+        background 0.15s ease,
+        box-shadow 0.15s ease;
+}
+
+.command-btn:hover {
+    transform: translateY(-1px);
+
+    background: #deedf7;
+
+    box-shadow:
+        0 5px 12px rgba(47, 89, 122, 0.1);
+}
+
+.command-btn span {
+    font-size: 12px;
+}
+
+.main-command {
+    background: #dceef9;
+}
+
+.utility {
+    background: #f4f5f6;
+}
+
+.logic {
+    background: #edf0ff;
+    color: #3f4775;
+}
+
+.condition {
+    justify-content: flex-start;
+
+    background: #eef8ed;
+    color: #385d36;
+
+    text-align: left;
+}
+
+.branching {
+    width: 100%;
+
+    justify-content: flex-start;
+
+    background: #fff5df;
+    color: #705625;
+
+    text-align: left;
+}
+
+
+/* =========================
+   ALGORITMA
+========================= */
+
+.algorithm-panel {
+    margin-top: 18px;
+    max-height: 180px;
+    overflow: auto;
+}
+
+.algorithm-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+
+    margin-bottom: 14px;
+}
+
+.attempt-pill {
+    padding: 8px 11px;
+
+    background: #eef5fa;
+    border-radius: 999px;
+
+    font-size: 13px;
+}
+
+.algorithm-box {
+    min-height: 86px;
+
+    padding: 16px;
+
+    border: 2px dashed #b8cbd9;
+    border-radius: 16px;
+
+    background: #f9fcfe;
+
+    overflow-x: auto;
+}
+
+.command-sequence {
+    line-height: 2;
+    font-weight: 700;
+}
+
+.assessment-mini {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+
+    margin-top: 14px;
+}
+
+.assessment-mini > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+
+    padding: 12px;
+
+    background: #f4f8fb;
+    border-radius: 12px;
+}
+
+.assessment-mini span {
+    font-size: 12px;
+    color: #61768a;
+}
+
+.attempt-history {
+    margin-top: 14px;
+}
+
+.attempt-history summary {
+    cursor: pointer;
+    font-weight: 700;
+}
+
+
+/* =========================
+   CONTROL BAR
+========================= */
+
+.kontrol-game {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+
+    width: fit-content;
+    padding: 10px;
+
+    background: rgba(255,255,255,0.95);
+
+    border: 1px solid #dbe5ec;
+    border-radius: 18px;
+
+    backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 10px 28px rgba(34,63,85,0.18);
+}
+
+.control-btn {
+    padding: 12px 20px;
+
+    border-radius: 12px;
+
+    background: #edf2f6;
+    color: #263e52;
+
+    cursor: pointer;
+
+    font-weight: 800;
+}
+
+.control-btn.primary {
+    background: #17659f;
+    color: white;
+}
+
+.control-btn.danger {
+    background: #fff0ef;
+    color: #9d3b36;
+}
+
+
+/* =========================
+   RESULT
+========================= */
+
+.student-result {
+    margin-top: 20px;
+}
+
+.result-content {
+    margin-top: 16px;
+
+    overflow-x: auto;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .game-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .command-panel {
+        max-height: none;
+    }
+
+    .board-wrapper {
+        min-height: auto;
+    }
+}
+
+
+@media (max-width: 620px) {
+
+    .app-shell {
+        width: 94%;
+        padding-top: 16px;
+    }
+
+    .brand {
+        padding: 18px;
+    }
+
+    .brand-icon {
+        width: 52px;
+        height: 52px;
+
+        font-size: 28px;
+    }
+
+    .identity-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .board-header,
+    .algorithm-header {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .arena {
+        width: 100%;
+
+        grid-template-columns:
+            repeat(4, 1fr);
+    }
+
+    .arena > div {
+        min-width: 0;
+        border-radius: 12px;
+    }
+
+    .command-buttons {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .command-buttons.two-column {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .assessment-mini {
+        grid-template-columns: 1fr;
+    }
+
+    .kontrol-game {
+        width: calc(100% - 20px);
+    }
+
+    .control-btn {
+        flex: 1;
+        padding: 11px 8px;
+
+        font-size: 12px;
+    }
+}
+/* =========================
+   FULLSCREEN APP MODE
+========================= */
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+}
+
+/* Layar identitas sebelum bermain */
+.start-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 5000;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    width: min(440px, 90%);
+    height: fit-content;
+
+    margin: auto;
+    padding: 28px;
+
+    background: white;
+    border-radius: 24px;
+
+    box-shadow:
+        0 20px 60px rgba(20, 50, 80, 0.22);
+}
+
+/* Area game memenuhi layar perangkat */
+.app-shell {
+    width: min(1180px, 96%);
+    height: 100dvh;
+
+    margin: 0 auto;
+    padding: 12px 0 76px;
+
+    overflow: hidden;
+}
+#game-screen {
+    display: none;
+}
+/* =========================
+   GAME SCREEN - ONE VIEW
+========================= */
+
+#game-screen {
+    display: none;
+
+    height: 100dvh;
+    max-height: 100dvh;
+
+    overflow: hidden;
+}
+
+#game-screen .game-header {
+    margin-bottom: 8px;
+}
+
+#game-screen .brand {
+    padding: 10px 16px;
+    border-radius: 16px;
+}
+
+#game-screen .brand-icon {
+    width: 44px;
+    height: 44px;
+    font-size: 24px;
+}
+
+#game-screen .brand h1 {
+    font-size: 24px;
+}
+
+#game-screen .brand p {
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+#game-screen .level-card {
+    padding: 10px 14px;
+    margin-bottom: 8px;
+}
+
+#game-screen .level-card h2 {
+    font-size: 18px;
+}
+
+#game-screen .game-layout {
+    height: calc(100dvh - 255px);
+    min-height: 0;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 12px;
+
+    margin-bottom: 8px;
+}
+
+#game-screen .board-panel,
+#game-screen .command-panel {
+    height: 100%;
+    min-height: 0;
+}
+
+#game-screen .board-panel {
+    padding: 12px;
+}
+
+#game-screen .command-panel {
+    padding: 12px;
+    overflow-y: auto;
+}
+
+#game-screen .board-wrapper {
+    min-height: 0;
+    padding: 10px;
+}
+
+#game-screen .arena {
+    grid-template-columns: repeat(4, minmax(54px, 72px));
+    gap: 5px;
+}
+
+#game-screen .arena > div {
+    min-width: 54px;
+    border-radius: 10px;
+    font-size: 30px;
+}
+
+#game-screen .algorithm-panel {
+    max-height: 150px;
+    padding: 12px;
+    margin-bottom: 6px;
+    overflow: auto;
+}
+
+#game-screen .student-result {
+    display: none;
+}
+/* =========================
+   FINAL COMPACT TUNING
+========================= */
+
+#game-screen {
+    padding-bottom: 64px;
+}
+
+#game-screen .game-header {
+    margin-bottom: 4px;
+}
+
+#game-screen .brand {
+    padding: 8px 14px;
+}
+
+#game-screen .brand-icon {
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+}
+
+#game-screen .brand h1 {
+    font-size: 22px;
+}
+
+#game-screen .brand p {
+    display: none;
+}
+
+#game-screen .level-card {
+    padding: 7px 10px;
+    margin-bottom: 6px;
+}
+
+#game-screen .level-heading {
+    margin-bottom: 6px;
+}
+
+#game-screen .level-heading .eyebrow {
+    display: none;
+}
+
+#game-screen .game-layout {
+    height: calc(100dvh - 175px);
+    gap: 10px;
+}
+
+#game-screen .board-header {
+    margin-bottom: 8px;
+}
+
+#game-screen .board-header .eyebrow {
+    display: none;
+}
+
+#game-screen .board-panel,
+#game-screen .command-panel {
+    border-radius: 16px;
+}
+
+#game-screen .command-panel {
+    padding: 10px;
+}
+
+#game-screen .command-group {
+    margin-top: 8px;
+    padding-top: 8px;
+}
+
+#game-screen .command-group h3 {
+    margin-bottom: 6px;
+}
+
+#game-screen .algorithm-panel {
+    position: fixed;
+    left: 50%;
+    bottom: 72px;
+    transform: translateX(-50%);
+
+    width: min(1180px, 96%);
+    max-height: 110px;
+
+    padding: 10px 14px;
+
+    z-index: 900;
+}
+
+#game-screen .algorithm-header {
+    margin-bottom: 5px;
+}
+
+#game-screen .algorithm-header h2 {
+    font-size: 16px;
+}
+
+#game-screen .algorithm-box {
+    min-height: 42px;
+    padding: 8px 10px;
+}
+
+#game-screen .assessment-mini,
+#game-screen .attempt-history {
+    display: none;
+}
+
+.kontrol-game {
+    bottom: 10px;
+}
+/* =========================================
+   ONE SCREEN GAME - DESKTOP FIX
+========================================= */
+
+#game-screen {
+    display: none;
+
+    width: min(1180px, 96%);
+    height: 100dvh;
+
+    margin: 0 auto;
+    padding: 8px 0;
+
+    overflow: hidden;
+
+    grid-template-rows:
+        auto
+        auto
+        minmax(0, 1fr)
+        auto
+        auto;
+
+    gap: 6px;
+}
+
+/* Saat game ditampilkan lewat JS */
+#game-screen[style*="display: block"] {
+    display: grid !important;
+}
+
+
+/* HEADER */
+
+#game-screen .game-header {
+    margin: 0;
+}
+
+#game-screen .brand {
+    min-height: 48px;
+    padding: 7px 14px;
+}
+
+#game-screen .brand-icon {
+    width: 36px;
+    height: 36px;
+    font-size: 19px;
+}
+
+#game-screen .brand h1 {
+    font-size: 21px;
+}
+
+#game-screen .brand p {
+    display: none;
+}
+
+
+/* LEVEL */
+
+#game-screen .level-card {
+    margin: 0;
+    padding: 6px 10px;
+}
+
+#game-screen .level-heading {
+    margin-bottom: 4px;
+}
+
+#game-screen .level-heading .eyebrow {
+    display: none;
+}
+
+#game-screen .level-card h2 {
+    font-size: 16px;
+}
+
+#game-screen .level-list {
+    gap: 5px;
+}
+
+#game-screen .level-list button {
+    min-width: 46px;
+    padding: 7px 8px;
+}
+
+
+/* AREA UTAMA */
+
+#game-screen .game-layout {
+    height: auto;
+    min-height: 0;
+    margin: 0;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
+    overflow: hidden;
+}
+
+#game-screen .board-panel,
+#game-screen .command-panel {
+    height: 100%;
+    min-height: 0;
+
+    padding: 10px;
+
+    overflow: hidden;
+}
+
+#game-screen .command-panel {
+    overflow-y: auto;
+}
+
+
+/* BOARD */
+
+#game-screen .board-header {
+    margin-bottom: 6px;
+}
+
+#game-screen .board-header h2 {
+    font-size: 22px;
+}
+
+#game-screen .board-wrapper {
+    min-height: 0;
+    height: calc(100% - 68px);
+
+    padding: 7px;
+}
+
+#game-screen .arena {
+    grid-template-columns:
+        repeat(4, minmax(48px, 66px));
+
+    gap: 5px;
+}
+
+#game-screen .arena > div {
+    min-width: 48px;
+    font-size: 27px;
+    border-radius: 10px;
+}
+
+#game-screen .game-status {
+    display: none;
+}
+
+
+/* PANEL PERINTAH */
+
+#game-screen .command-panel .section-heading {
+    margin-bottom: 6px;
+}
+
+#game-screen .command-panel h2 {
+    font-size: 20px;
+}
+
+#game-screen .command-panel .section-heading p {
+    display: none;
+}
+
+#game-screen .command-group {
+    margin-top: 6px;
+    padding-top: 6px;
+}
+
+#game-screen .command-group h3 {
+    margin-bottom: 5px;
+}
+
+#game-screen .command-btn {
+    min-height: 40px;
+    padding: 7px;
+}
+
+
+/* ALGORITMA
+   TIDAK LAGI FLOATING */
+
+#game-screen .algorithm-panel {
+    position: static;
+
+    width: 100%;
+    max-height: 92px;
+
+    margin: 0;
+    padding: 7px 12px;
+
+    overflow: hidden;
+
+    transform: none;
+}
+
+#game-screen .algorithm-header {
+    margin-bottom: 3px;
+}
+
+#game-screen .algorithm-header .eyebrow {
+    display: none;
+}
+
+#game-screen .algorithm-header h2 {
+    font-size: 14px;
+}
+
+#game-screen .attempt-pill {
+    padding: 5px 8px;
+    font-size: 11px;
+}
+
+#game-screen .algorithm-box {
+    min-height: 37px;
+    max-height: 45px;
+
+    padding: 6px 8px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#game-screen .assessment-mini,
+#game-screen .attempt-history {
+    display: none;
+}
+
+
+/* CONTROL
+   TIDAK LAGI FLOATING */
+
+#game-screen .kontrol-game {
+    position: static;
+
+    width: fit-content;
+
+    margin: 0 auto;
+    padding: 5px;
+
+    transform: none;
+}
+
+#game-screen .control-btn {
+    padding: 9px 17px;
+}
+
+
+/* RESULT tidak memenuhi layar permainan */
+
+#game-screen .student-result {
+    display: none;
+}
+/* =========================================
+   GERAK LOGIKA - FIT 1 LAYAR LAPTOP
+========================================= */
+
+#game-screen {
+    height: 100dvh;
+    padding: 6px 0;
+
+    grid-template-rows:
+        52px
+        74px
+        minmax(0, 1fr)
+        72px
+        52px;
+
+    gap: 5px;
+}
+
+
+/* HEADER */
+
+#game-screen .game-header,
+#game-screen .brand {
+    height: 52px;
+}
+
+#game-screen .brand {
+    padding: 5px 12px;
+}
+
+#game-screen .brand-icon {
+    width: 34px;
+    height: 34px;
+}
+
+#game-screen .brand h1 {
+    font-size: 20px;
+}
+
+
+/* LEVEL */
+
+#game-screen .level-card {
+    height: 74px;
+    padding: 5px 10px;
+    overflow: hidden;
+}
+
+#game-screen .level-heading {
+    margin-bottom: 2px;
+}
+
+#game-screen .level-card h2 {
+    font-size: 15px;
+}
+
+#game-screen .level-list button {
+    min-width: 43px;
+    padding: 6px 7px;
+}
+
+
+/* AREA BOARD + PERINTAH */
+
+#game-screen .game-layout {
+    min-height: 0;
+    height: 100%;
+}
+
+#game-screen .board-panel,
+#game-screen .command-panel {
+    min-height: 0;
+    height: 100%;
+}
+
+
+/* BOARD */
+
+#game-screen .board-panel {
+    padding: 8px 10px;
+}
+
+#game-screen .board-header {
+    height: 48px;
+    margin-bottom: 3px;
+}
+
+#game-screen .board-header h2 {
+    font-size: 20px;
+}
+
+#game-screen .board-wrapper {
+    height: calc(100% - 51px);
+    min-height: 0;
+    padding: 5px;
+}
+
+
+/* Ukuran kotak mengikuti tinggi layar */
+
+#game-screen .arena {
+    grid-template-columns:
+        repeat(4, clamp(44px, 7.2vh, 62px));
+
+    gap: 4px;
+}
+
+#game-screen .arena > div {
+    width: clamp(44px, 7.2vh, 62px);
+    min-width: 0;
+
+    aspect-ratio: 1 / 1;
+
+    font-size: clamp(22px, 4vh, 30px);
+
+    border-radius: 9px;
+}
+
+
+/* PANEL PERINTAH */
+
+#game-screen .command-panel {
+    padding: 8px 10px;
+}
+
+#game-screen .command-panel .section-heading {
+    margin-bottom: 3px;
+}
+
+#game-screen .command-panel h2 {
+    font-size: 18px;
+}
+
+#game-screen .command-group {
+    margin-top: 5px;
+    padding-top: 5px;
+}
+
+#game-screen .command-btn {
+    min-height: 35px;
+    padding: 5px 7px;
+}
+
+
+/* ALGORITMA */
+
+#game-screen .algorithm-panel {
+    height: 72px;
+    min-height: 72px;
+    max-height: 72px;
+
+    padding: 5px 10px;
+}
+
+#game-screen .algorithm-header {
+    height: 22px;
+    margin-bottom: 2px;
+}
+
+#game-screen .algorithm-box {
+    height: 35px;
+    min-height: 35px;
+    padding: 5px 8px;
+}
+
+
+/* TOMBOL UTAMA */
+
+#game-screen .kontrol-game {
+    height: 52px;
+
+    margin: 0 auto;
+    padding: 4px;
+
+    align-items: center;
+}
+
+#game-screen .control-btn {
+    padding: 8px 18px;
+}
+/* ==================================================
+   GERAK LOGIKA - FINAL DESKTOP LAYOUT
+   Header | Board + Side Panel | Footer
+================================================== */
+
+#game-screen {
+    display: none;
+
+    width: min(1180px, 96%);
+    height: 100dvh;
+
+    margin: 0 auto;
+    padding: 8px 0;
+
+    overflow: hidden;
+
+    display: none;
+
+    grid-template-columns:
+        minmax(520px, 1.25fr)
+        minmax(400px, 0.75fr);
+
+    grid-template-rows:
+        56px
+        74px
+        minmax(0, 1fr)
+        120px
+        58px;
+
+    grid-template-areas:
+        "header header"
+        "board  levels"
+        "board  commands"
+        "board  algorithm"
+        "footer footer";
+
+    gap: 8px;
+}
+
+
+/* ketika JS menampilkan game */
+#game-screen[style*="display: block"] {
+    display: grid !important;
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+#game-screen .game-header {
+    grid-area: header;
+
+    height: 56px;
+    margin: 0;
+}
+
+#game-screen .brand {
+    height: 56px;
+
+    padding: 7px 16px;
+
+    border-radius: 16px;
+}
+
+#game-screen .brand-icon {
+    width: 38px;
+    height: 38px;
+
+    font-size: 21px;
+}
+
+#game-screen .brand h1 {
+    font-size: 22px;
+}
+
+#game-screen .brand p {
+    display: none;
+}
+
+
+/* ==================================================
+   GAME-LAYOUT DIBUKA AGAR BOARD DAN COMMAND
+   BISA MASUK GRID UTAMA
+================================================== */
+
+#game-screen .game-layout {
+    display: contents;
+}
+
+
+/* ==================================================
+   BOARD - KIRI BESAR
+================================================== */
+
+#game-screen .board-panel {
+    grid-area: board;
+
+    height: 100%;
+    min-height: 0;
+
+    padding: 12px;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+}
+
+#game-screen .board-header {
+    height: 52px;
+
+    margin-bottom: 5px;
+}
+
+#game-screen .board-header h2 {
+    font-size: 23px;
+}
+
+#game-screen .board-wrapper {
+    height: calc(100% - 57px);
+
+    min-height: 0;
+
+    padding: 10px;
+
+    display: grid;
+    place-items: center;
+}
+
+
+/* BOARD DIPERBESAR */
+
+#game-screen .arena {
+    grid-template-columns:
+        repeat(4, clamp(72px, 10vh, 94px));
+
+    gap: 7px;
+}
+
+#game-screen .arena > div {
+    width: clamp(72px, 10vh, 94px);
+    min-width: 0;
+
+    aspect-ratio: 1 / 1;
+
+    border-radius: 14px;
+
+    font-size: clamp(30px, 5vh, 42px);
+}
+
+#game-screen .game-status {
+    display: none;
+}
+
+
+/* ==================================================
+   PILIH LEVEL - KANAN ATAS
+================================================== */
+
+#game-screen .level-card {
+    grid-area: levels;
+
+    height: 100%;
+
+    margin: 0;
+    padding: 7px 10px;
+
+    overflow: hidden;
+
+    border-radius: 16px;
+}
+
+#game-screen .level-heading {
+    margin-bottom: 4px;
+}
+
+#game-screen .level-heading .eyebrow {
+    display: none;
+}
+
+#game-screen .level-card h2 {
+    font-size: 15px;
+}
+
+#game-screen .level-list {
+    gap: 4px;
+}
+
+#game-screen .level-list button {
+    min-width: 38px;
+
+    padding: 5px 6px;
+
+    font-size: 12px;
+}
+
+
+/* ==================================================
+   BLOK PERINTAH - KANAN TENGAH
+================================================== */
+
+#game-screen .command-panel {
+    grid-area: commands;
+
+    height: 100%;
+    min-height: 0;
+
+    padding: 10px 12px;
+
+    overflow-y: auto;
+
+    border-radius: 16px;
+}
+
+#game-screen .command-panel .section-heading {
+    margin-bottom: 6px;
+}
+
+#game-screen .command-panel h2 {
+    font-size: 19px;
+}
+
+#game-screen .command-panel .section-heading p {
+    display: none;
+}
+
+#game-screen .command-group {
+    margin-top: 6px;
+    padding-top: 6px;
+}
+
+#game-screen .command-group h3 {
+    margin-bottom: 5px;
+
+    font-size: 13px;
+}
+
+#game-screen .command-btn {
+    min-height: 38px;
+
+    padding: 6px 8px;
+}
+
+
+/* ==================================================
+   ALGORITMA - KANAN BAWAH
+================================================== */
+
+#game-screen .algorithm-panel {
+    grid-area: algorithm;
+
+    position: static;
+
+    width: 100%;
+    height: 100%;
+    max-height: none;
+
+    margin: 0;
+    padding: 8px 10px;
+
+    overflow: hidden;
+
+    transform: none;
+
+    border-radius: 16px;
+}
+
+#game-screen .algorithm-header {
+    height: 25px;
+
+    margin-bottom: 4px;
+}
+
+#game-screen .algorithm-header .eyebrow {
+    display: none;
+}
+
+#game-screen .algorithm-header h2 {
+    font-size: 14px;
+}
+
+#game-screen .attempt-pill {
+    padding: 4px 7px;
+
+    font-size: 10px;
+}
+
+#game-screen .algorithm-box {
+    height: 64px;
+min-height: 64px;
+
+    padding: 6px 8px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#game-screen .assessment-mini,
+#game-screen .attempt-history {
+    display: none;
+}
+
+
+/* ==================================================
+   FOOTER CONTROL
+================================================== */
+
+#game-screen .kontrol-game {
+    grid-area: footer;
+
+    position: static;
+
+    width: 100%;
+    height: 58px;
+
+    margin: 0;
+    padding: 7px 14px;
+
+    transform: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 18px;
+
+    border-radius: 16px;
+}
+
+#game-screen .control-btn {
+    min-width: 150px;
+
+    padding: 10px 20px;
+
+    font-size: 14px;
+}
+
+
+/* RESULT TIDAK MENGAMBIL RUANG SAAT MAIN */
+
+#game-screen .student-result {
+    display: none;
+}
+/* =========================================
+   COMPACT ALGORITHM BLOCKS
+========================================= */
+
+#daftar-perintah {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 4px;
+
+    width: 100%;
+    max-height: 58px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    white-space: normal;
+
+    scrollbar-width: thin;
+}
+
+/* setiap blok/perintah di area algoritma */
+#daftar-perintah > * {
+    flex: 0 0 auto;
+
+    padding: 4px 7px !important;
+
+    font-size: 11px !important;
+    line-height: 1.2;
+
+    border-radius: 7px !important;
+
+    white-space: nowrap;
+}
+
+/* scrollbar tidak mengambil banyak ruang */
+#daftar-perintah::-webkit-scrollbar {
+    height: 4px;
+}
+#game-screen .level-list {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr);
+    gap: 4px;
+}
+
+#game-screen .level-list button {
+    min-width: 0;
+    width: 100%;
+    padding: 5px 2px;
+    font-size: 11px;
+}
+.geka-karakter {
+    width: 76%;
+    height: 76%;
+
+    object-fit: contain;
+    display: block;
+
+    margin: auto;
+
+    pointer-events: none;
+}
+.arena > div {
+    overflow: hidden;
+}
+.peti-target {
+    width: 78%;
+    height: 78%;
+
+    object-fit: contain;
+    display: block;
+
+    margin: auto;
+
+    pointer-events: none;
+}
+.bintang-kemenangan {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -70%) scale(0.5);
+
+    font-size: 20px;
+
+    pointer-events: none;
+
+    animation: bintangKeluar 0.9s ease forwards;
+}
+
+@keyframes bintangKeluar {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -40%) scale(0.4);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate(-50%, -120%) scale(1.15);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -105%) scale(1);
+    }
+}
+
+.arena > div {
+    position: relative;
+}
+.bintang-kemenangan {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+
+    font-size: 15px;
+    white-space: nowrap;
+
+    pointer-events: none;
+
+    opacity: 0;
+
+    animation: bintangKeluar 1s ease forwards;
+}
+
+@keyframes bintangKeluar {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, 10px) scale(0.3);
+    }
+
+    60% {
+        opacity: 1;
+        transform: translate(-50%, -18px) scale(1.25);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(-50%, -13px) scale(1);
+    }
+}
+.rintangan-game {
+    width: 76%;
+    height: 76%;
+
+    object-fit: contain;
+    display: block;
+
+    margin: auto;
+
+    pointer-events: none;
+}
+/* =========================================
+   CROCHET FANTASY WORLD - ARENA
+========================================= */
+
+.board-wrapper {
+    background:
+        radial-gradient(
+            circle at 20% 20%,
+            rgba(255,255,255,0.35) 0 2px,
+            transparent 3px
+        ),
+        linear-gradient(
+            135deg,
+            #b9d99b,
+            #91bf78
+        );
+
+    border: 4px solid #7d9f67;
+    border-radius: 20px;
+
+    box-shadow:
+        inset 0 0 0 3px rgba(255,255,255,0.25),
+        inset 0 0 18px rgba(70,100,50,0.18);
+
+    position: relative;
+}
+
+
+/* Petak seperti kain/jalur rajut */
+
+.arena > div {
+    background:
+        repeating-linear-gradient(
+            45deg,
+            rgba(255,255,255,0.10) 0px,
+            rgba(255,255,255,0.10) 2px,
+            transparent 2px,
+            transparent 5px
+        ),
+        linear-gradient(
+            145deg,
+            #f4e6bd,
+            #e6cf9e
+        );
+
+    border: 2px solid #b79863;
+
+    box-shadow:
+        inset 2px 2px 3px rgba(255,255,255,0.45),
+        inset -2px -2px 3px rgba(120,85,45,0.15),
+        0 2px 3px rgba(70,60,40,0.12);
+
+    position: relative;
+}
+
+
+/* Efek jahitan kecil di tepi petak */
+
+.arena > div::after {
+    content: "";
+
+    position: absolute;
+    inset: 3px;
+
+    border: 1px dashed rgba(137, 101, 58, 0.30);
+    border-radius: 7px;
+
+    pointer-events: none;
+}
+
+
+/* Geka, peti, dan rintangan tetap di atas tekstur */
+
+.geka-karakter,
+.peti-target,
+.rintangan-game {
+    position: relative;
+    z-index: 2;
+}
+/* =========================================
+   DUNIA GEKA - CROCHET FANTASY SCENERY
+========================================= */
+
+#game-screen .board-wrapper {
+    position: relative;
+    overflow: hidden;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,0.08),
+            rgba(255,255,255,0.08)
+        ),
+        url("assets/world/dunia-geka.png");
+
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    border: 4px solid #7d9f67;
+    border-radius: 20px;
+}
+
+
+/* Grid asli game tetap berada di atas dunia */
+
+#game-screen .arena {
+    position: relative;
+    z-index: 5;
+
+    padding: 8px;
+
+    border-radius: 16px;
+
+    background: rgba(255, 248, 225, 0.18);
+
+    backdrop-filter: blur(0.5px);
+}
+
+
+/* Petak dibuat sedikit transparan agar scenery terasa menyatu */
+
+#game-screen .arena > div {
+    background:
+        repeating-linear-gradient(
+            45deg,
+            rgba(255,255,255,0.12) 0px,
+            rgba(255,255,255,0.12) 2px,
+            transparent 2px,
+            transparent 5px
+        ),
+        rgba(244, 230, 189, 0.88);
+
+    border: 2px solid rgba(183, 152, 99, 0.9);
+
+    box-shadow:
+        inset 2px 2px 3px rgba(255,255,255,0.40),
+        inset -2px -2px 3px rgba(120,85,45,0.12),
+        0 2px 4px rgba(60,45,25,0.16);
+}
+
+
+/* Geka, peti dan rintangan selalu paling atas */
+
+.geka-karakter,
+.peti-target,
+.rintangan-game,
+.bintang-kemenangan {
+    position: relative;
+    z-index: 10;
+}
+/* =========================================
+   SEMBUNYIKAN TOMBOL NEXT LAMA
+   ========================================= */
+
+#tombol-next {
+    position: absolute !important;
+    right: 18px !important;
+    bottom: 8px !important;
+    z-index: 9999 !important;
+
+    padding: 6px 14px !important;
+    border-radius: 14px !important;
+    background: #1f6fa8 !important;
+    color: white !important;
+    font-weight: 700 !important;
+    font-size: 12px !important;
+    cursor: pointer;
+}
+#game-screen {
+    position: relative;
+}
+/* =========================================
+   FIX TAMPILAN DAFTAR PERINTAH
+   ========================================= */
+
+#daftar-perintah {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+
+    width: 100%;
+    max-height: 58px;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    gap: 3px;
+}
+
+#daftar-perintah > * {
+    flex: 0 1 auto;
+
+    padding: 3px 6px !important;
+
+    font-size: 9px !important;
+    line-height: 1.15 !important;
+
+    white-space: normal !important;
+    overflow-wrap: anywhere;
+}
+#daftar-perintah {
+    display: block !important;
+    max-height: 58px !important;
+    overflow-y: auto !important;
+    line-height: 1.15 !important;
+}
+
+#daftar-perintah > span {
+    display: inline !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 9px !important;
+    line-height: 1.15 !important;
+    white-space: normal !important;
+}
+/* TOMBOL LEVEL BERIKUTNYA - FINAL */
+#game-screen {
+    position: relative !important;
+}
+
+#tombol-next {
+    position: absolute !important;
+    right: 12px !important;
+    bottom: 6px !important;
+    z-index: 9999 !important;
+
+    padding: 5px 12px !important;
+    margin: 0 !important;
+
+    border-radius: 12px !important;
+    font-size: 11px !important;
+    line-height: 1.2 !important;
+}
+/* =========================================
+   ENDING GERAK LOGIKA
+   ========================================= */
+
+#ending-game {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+
+    background: rgba(20, 14, 10, 0.72);
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px;
+}
+
+.ending-card {
+    width: min(88%, 430px);
+    max-height: 90vh;
+    overflow-y: auto;
+
+    padding: 18px 20px;
+    border-radius: 24px;
+
+    background: #f7ead2;
+    border: 5px solid #8b5e3c;
+
+    text-align: center;
+
+    box-shadow:
+        0 8px 0 #5f3d29,
+        0 14px 30px rgba(0,0,0,0.35);
+}
+
+.ending-piala {
+    font-size: 42px;
+    line-height: 1;
+}
+
+.ending-card h2 {
+    margin: 7px 0;
+    font-size: 22px;
+}
+
+.ending-card p {
+    margin: 7px 0;
+    font-size: 12px;
+    line-height: 1.35;
+}
+
+.ending-bintang {
+    margin: 8px 0 4px;
+    font-size: 25px;
+}
+
+.ending-card h3 {
+    margin: 4px 0 10px;
+    font-size: 16px;
+}
+
+.ending-card button {
+    padding: 8px 18px;
+    border: none;
+    border-radius: 15px;
+
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.ending-card small {
+    display: block;
+    margin-top: 10px;
+
+    font-size: 9px;
+    opacity: 0.7;
+}
+/* =========================================
+   FIX HALAMAN HASIL SISWA
+   ========================================= */
+
+#game-screen .student-result {
+    display: none;
+    position: fixed;
+    inset: 0;
+
+    width: 100%;
+    height: 100dvh;
+
+    overflow-y: auto !important;
+    overflow-x: hidden;
+
+    background: #f4f8fc;
+    z-index: 99998;
+
+    padding: 16px 24px 40px;
+}
+
+#hasil-semua-level {
+    width: 100%;
+    height: auto !important;
+    max-height: none !important;
+
+    overflow: visible !important;
+}
+/* =========================================
+   MODE GURU
+   ========================================= */
+
+#btn-mode-guru {
+    margin-top: 10px;
+    padding: 7px 14px;
+    border-radius: 12px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.guru-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+
+    align-items: center;
+    justify-content: center;
+
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.guru-login-card {
+    width: min(88%, 340px);
+    padding: 20px;
+
+    background: white;
+    border-radius: 22px;
+
+    text-align: center;
+}
+
+.guru-login-card h2 {
+    margin: 0 0 6px;
+}
+
+.guru-login-card p {
+    font-size: 12px;
+    margin-bottom: 12px;
+}
+
+#pin-guru {
+    width: 100%;
+    padding: 10px;
+
+    border: 1px solid #ccc;
+    border-radius: 10px;
+
+    text-align: center;
+    font-size: 16px;
+}
+
+.guru-login-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+
+    margin-top: 12px;
+}
+
+.guru-login-actions button {
+    padding: 8px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+
+/* ==================================================
+   TOMBOL FULLSCREEN
+   ================================================== */
+
+#btn-fullscreen {
+    margin-left: auto !important;
+
+    width: 38px !important;
+    height: 30px !important;
+    flex: 0 0 38px !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+    border: none !important;
+    border-radius: 8px !important;
+
+    background: rgba(255, 255, 255, 0.16) !important;
+    color: white !important;
+
+    font-size: 20px !important;
+    font-weight: bold !important;
+
+    cursor: pointer;
+
+    position: relative !important;
+    z-index: 100 !important;
+}
+
+/* ==========================================================
+   GERAK LOGIKA v1.1 - RESPONSIVE HP LANDSCAPE FINAL
+   Satu sumber aturan untuk layar HP landscape.
+   ========================================================== */
+
+@media screen and (orientation: landscape) and (max-width: 900px) {
+
+    #game-screen {
+        width: 100% !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+
+        padding: 5px !important;
+        gap: 4px !important;
+
+        overflow: hidden !important;
+
+        grid-template-columns:
+            minmax(0, 54fr)
+            minmax(0, 46fr) !important;
+
+        grid-template-rows:
+            40px
+            46px
+            minmax(0, 1fr)
+            68px
+            40px !important;
+
+        grid-template-areas:
+            "header header"
+            "board levels"
+            "board commands"
+            "board algorithm"
+            "footer footer" !important;
+    }
+
+    /* HEADER */
+    #game-screen .game-header,
+    #game-screen .brand {
+        height: 40px !important;
+        min-height: 40px !important;
+        margin: 0 !important;
+    }
+
+    #game-screen .brand {
+        padding: 3px 9px !important;
+        border-radius: 10px !important;
+    }
+
+    #game-screen .brand-icon {
+        width: 29px !important;
+        height: 29px !important;
+        font-size: 16px !important;
+    }
+
+    #game-screen .brand h1 {
+        font-size: 18px !important;
+    }
+
+    #game-screen .brand p {
+        display: none !important;
+    }
+
+    /* BOARD */
+    #game-screen .board-panel {
+        grid-area: board !important;
+
+        display: grid !important;
+        grid-template-rows: 32px minmax(0, 1fr) !important;
+
+        height: 100% !important;
+        min-height: 0 !important;
+
+        padding: 6px !important;
+        overflow: hidden !important;
+
+        border-radius: 11px !important;
+    }
+
+    #game-screen .board-header {
+        height: 32px !important;
+        min-height: 32px !important;
+        margin: 0 !important;
+    }
+
+    #game-screen .board-header h2 {
+        font-size: 17px !important;
+    }
+
+    #game-screen .board-wrapper {
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 0 !important;
+
+        padding: 2px !important;
+
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+
+        overflow: hidden !important;
+    }
+
+    /* Arena mengikuti TINGGI viewport, bukan ukuran HP tertentu */
+    #game-screen .arena {
+        --petak-hp: clamp(34px, 11.5dvh, 52px);
+
+        display: grid !important;
+
+        grid-template-columns:
+            repeat(4, var(--petak-hp)) !important;
+
+        grid-template-rows:
+            repeat(4, var(--petak-hp)) !important;
+
+        grid-auto-rows: unset !important;
+
+        gap: clamp(2px, 0.8dvh, 4px) !important;
+
+        width: fit-content !important;
+        height: fit-content !important;
+
+        min-width: 0 !important;
+        min-height: 0 !important;
+
+        margin: 0 !important;
+        padding: 3px !important;
+
+        box-sizing: border-box !important;
+        transform: none !important;
+    }
+
+    #game-screen .arena > div,
+    #game-screen .arena .kotak {
+        width: var(--petak-hp) !important;
+        height: var(--petak-hp) !important;
+
+        min-width: 0 !important;
+        min-height: 0 !important;
+
+        aspect-ratio: auto !important;
+        box-sizing: border-box !important;
+
+        padding: 0 !important;
+
+        border-radius: 9px !important;
+        font-size: clamp(18px, 5dvh, 26px) !important;
+    }
+
+    #game-screen .arena img,
+    #game-screen .geka-karakter,
+    #game-screen .peti-target,
+    #game-screen .rintangan-game {
+        max-width: 88% !important;
+        max-height: 88% !important;
+        object-fit: contain !important;
+    }
+
+    /* PILIH LEVEL */
+    #game-screen .level-card {
+        grid-area: levels !important;
+
+        height: 100% !important;
+        min-height: 0 !important;
+
+        margin: 0 !important;
+        padding: 4px 6px !important;
+
+        overflow: hidden !important;
+        border-radius: 10px !important;
+    }
+
+    #game-screen .level-heading {
+        margin-bottom: 2px !important;
+    }
+
+    #game-screen .level-card h2 {
+        font-size: 12px !important;
+    }
+
+    #game-screen .level-list {
+        grid-template-columns: repeat(10, minmax(0, 1fr)) !important;
+        gap: 2px !important;
+    }
+
+    #game-screen .level-list button {
+        min-width: 0 !important;
+        width: 100% !important;
+        padding: 3px 1px !important;
+        font-size: 8px !important;
+    }
+
+    /* BLOK PERINTAH */
+    #game-screen .command-panel {
+        grid-area: commands !important;
+
+        height: 100% !important;
+        min-height: 0 !important;
+
+        padding: 6px 7px !important;
+
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+
+        border-radius: 10px !important;
+    }
+
+    #game-screen .command-panel .section-heading {
+        margin-bottom: 3px !important;
+    }
+
+    #game-screen .command-panel h2 {
+        font-size: 14px !important;
+    }
+
+    #game-screen .command-group {
+        margin-top: 4px !important;
+        padding-top: 4px !important;
+    }
+
+    #game-screen .command-group h3 {
+        margin-bottom: 3px !important;
+        font-size: 11px !important;
+    }
+
+    #game-screen .command-btn {
+        min-height: 30px !important;
+        padding: 3px 5px !important;
+        font-size: 9px !important;
+    }
+
+    #game-screen .command-btn span {
+        font-size: 9px !important;
+    }
+
+    /* ALGORITMA */
+    #game-screen .algorithm-panel {
+        grid-area: algorithm !important;
+
+        position: static !important;
+
+        width: 100% !important;
+        height: 100% !important;
+        min-height: 0 !important;
+        max-height: none !important;
+
+        margin: 0 !important;
+        padding: 4px 7px !important;
+
+        overflow: hidden !important;
+        transform: none !important;
+
+        border-radius: 10px !important;
+    }
+
+    #game-screen .algorithm-header {
+        height: 20px !important;
+        margin-bottom: 2px !important;
+    }
+
+    #game-screen .algorithm-header h2 {
+        font-size: 11px !important;
+    }
+
+    #game-screen .attempt-pill {
+        padding: 2px 5px !important;
+        font-size: 8px !important;
+    }
+
+    #game-screen .algorithm-box {
+        height: 36px !important;
+        min-height: 36px !important;
+        max-height: 36px !important;
+
+        padding: 3px 5px !important;
+
+        overflow-x: auto !important;
+        overflow-y: hidden !important;
+    }
+
+    /* TOMBOL UTAMA */
+    #game-screen .kontrol-game {
+        grid-area: footer !important;
+
+        position: static !important;
+
+        width: 100% !important;
+        height: 40px !important;
+
+        margin: 0 !important;
+        padding: 2px 6px !important;
+
+        transform: none !important;
+
+        gap: 6px !important;
+        border-radius: 10px !important;
+    }
+
+    #game-screen .control-btn {
+        min-width: 0 !important;
+        flex: 1 1 0 !important;
+
+        padding: 5px 8px !important;
+        font-size: 9px !important;
+    }
+}
